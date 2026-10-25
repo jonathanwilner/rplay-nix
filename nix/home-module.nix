@@ -23,6 +23,7 @@ let
   confText = builtins.concatStringsSep "\n" (
     optional (cfg.name != null) (assign "RPLAY_NAME" cfg.name)
     ++ optional (cfg.audioDevice != null) (assign "RPLAY_AUDIO_DEVICE" cfg.audioDevice)
+    ++ optional (!cfg.touchInput) (assign "RPLAY_IAP_TOUCH" "0")
     ++ optional (cfg.decoder != null) (assign "RPLAY_H264_DECODER" cfg.decoder)
     ++ optional (cfg.scaleQuality != null) (assign "RPLAY_SCALE_QUALITY" cfg.scaleQuality)
     ++ optional (cfg.renderer != null) (assign "RPLAY_SW_RENDER" cfg.renderer)
@@ -54,6 +55,18 @@ in
       default = null;
       example = "hw:0";
       description = "ALSA device for AirPlay audio.";
+    };
+
+    touchInput = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        true  — clicks are absolute finger taps. rPlay needs AssistiveTouch or
+                Zoom enabled on the iPhone for this mode.
+        false — the pointer behaves like an external Bluetooth mouse, moving by
+                deltas. Works on any iPhone with nothing enabled on the device.
+                Keyboard forwarding is independent of this setting.
+      '';
     };
 
     decoder = mkOption {

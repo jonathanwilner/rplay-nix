@@ -17,6 +17,7 @@ let
     concatStringsSep "\n" (
       optional (cfg.name != null) (assign "RPLAY_NAME" cfg.name)
       ++ optional (cfg.audioDevice != null) (assign "RPLAY_AUDIO_DEVICE" cfg.audioDevice)
+      ++ optional (!cfg.touchInput) (assign "RPLAY_IAP_TOUCH" "0")
       ++ optional (cfg.decoder != null) (assign "RPLAY_H264_DECODER" cfg.decoder)
       ++ optional (cfg.renderer != null) (assign "RPLAY_SW_RENDER" cfg.renderer)
       ++ optional (cfg.scaleQuality != null) (assign "RPLAY_SCALE_QUALITY" cfg.scaleQuality)
@@ -50,6 +51,15 @@ in
       description = ''
         ALSA device for AirPlay audio. The vendor default is "default", which
         PipeWire often routes to the analogue jack. Use `hw:0` for HDMI.
+      '';
+    };
+
+    touchInput = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        true  — absolute finger taps; needs AssistiveTouch or Zoom on the phone.
+        false — external-mouse behaviour, no phone-side setup required.
       '';
     };
 
