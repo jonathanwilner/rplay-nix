@@ -14,6 +14,12 @@ let
     cross.zlib
     cross.libva
     cross.libx11
+    cross.xorg.libXi
+    cross.xorg.libXcursor
+    cross.xorg.libXrandr
+    cross.xorg.libXinerama
+    cross.xorg.libXext
+    cross.xorg.libXScrnSaver
     cross.libxcb
     cross.libxext
     cross.libxau

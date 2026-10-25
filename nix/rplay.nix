@@ -24,6 +24,14 @@ let
     targetPkgs.zlib
     targetPkgs.libva
     targetPkgs.libx11
+    # SDL2 2.0.22 loads the X11 extensions at runtime; without them the static
+    # SDL build reports "No available video device" and the GUI never opens.
+    targetPkgs.xorg.libXi
+    targetPkgs.xorg.libXcursor
+    targetPkgs.xorg.libXrandr
+    targetPkgs.xorg.libXinerama
+    targetPkgs.xorg.libXext
+    targetPkgs.xorg.libXScrnSaver
     targetPkgs.udev
     targetPkgs.bluez
     targetPkgs.glib
